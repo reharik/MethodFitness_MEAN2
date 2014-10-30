@@ -1,0 +1,59 @@
+<section data-ng-controller="ClientsController" data-ng-init="init()">
+    <div class="page-header">
+        <h1>Create New Client</h1>
+    </div>
+    <form name="createClient_form" class="form-horizontal" data-ng-submit="create(createClient_form.$valid)" novalidate>
+        <div class="col-lg-6">
+            <fieldset>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <div class="controls">
+                        <input type="text" id="firstName" name="firstName" class="form-control" data-ng-model="client.FirstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <div class="controls">
+                        <input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="client.LastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="EmailAddress">Email Address</label>
+                    <div class="controls">
+                        <input type="email" data-ng-model="client.EmailAddress" id="EmailAddress" class="form-control" placeholder="Email Address" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="Phone">Phone</label>
+                    <div class="controls">
+                        <input type="tel" data-ng-model="client.Phone" id="Phone" class="form-control" placeholder="Phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="Phone">Secondary Phone</label>
+                    <div class="controls">
+                        <input type="tel" data-ng-model="client.SecondaryPhone" id="SecondaryPhone" class="form-control" placeholder="Secondary Phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="Source">Source</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="client.Source" id="Source" class="form-control" placeholder="Source" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="SourceNotes">Source Notes</label>
+                    <div class="controls">
+                        <textarea data-ng-model="client.SourceNotes" id="SourceNotes" class="form-control" placeholder="Source Notes" required ></textarea>
+                    </div>
+                </div>
+                <div class="text-center form-group">
+                    <button type="submit" class="btn btn-large btn-primary">Submit</button>
+                </div>
+                <div data-ng-show="error" class="text-center text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</section>
