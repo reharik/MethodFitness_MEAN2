@@ -10,7 +10,8 @@ angular.module('clients').factory('repository', ['$rootScope', '$http','$resourc
         var items = [];
 
         var _getAll = function(){
-            return resource.query().$promise;
+            var $promise = resource.query().$promise;
+            return  $promise;
         };
 
         var _create = function(item){

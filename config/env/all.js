@@ -15,7 +15,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-                'public/lib/ui-grid-3.0-rc12/ui-grid.css'
+                'public/lib/angular-ui-grid/ui-grid.css'
             ],
 			js: [
 				'public/lib/angular/angular.js',
@@ -28,7 +28,7 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
                 'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
                 'public/lib/lodash/dist/lodash.min.js',
-                'public/lib/ui-grid-3.0-rc12/ui-grid.js'
+                'public/lib/angular-ui-grid/ui-grid.js'
             ]
 		},
 		css: [

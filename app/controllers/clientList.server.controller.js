@@ -16,6 +16,7 @@ exports.list = function(req, res) { ClientSummary.find().sort('-LastName').exec(
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+            console.log(clients);
 			res.jsonp(clients);
 		}
 	});
