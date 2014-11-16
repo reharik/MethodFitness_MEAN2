@@ -12,7 +12,8 @@ var ApplicationConfiguration = (function() {
         'ui.router',
         'ui.bootstrap',
         'ui.utils',
-        'ui.grid'];
+        'ui.grid',
+        'xeditable'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

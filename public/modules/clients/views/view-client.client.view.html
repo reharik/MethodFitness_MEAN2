@@ -1,19 +1,108 @@
 <section data-ng-controller="ClientsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="client.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="authentication.user._id == client.user._id">
-		<a class="btn btn-primary" href="/#!/clients/{{client._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
+    <div class="col-lg-6">
+        <form editable-form name="correctName" onaftersave="correctClientName()">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="firstName">First Name: </label>
+                        <div class="controls">
+                            <span editable-text="client.Contact.FirstName" e-name="firstName" onbeforesave="checkName($data)" e-required>{{ client.Contact.FirstName || 'empty' }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name: </label>
+                        <div class="controls">
+                            <span editable-text="client.Contact.LastName" e-name="lastName" onbeforesave="checkName($data)" e-required>{{ client.Contact.LastName || 'empty' }}</span>
+                        </div>
+                    </div>
+                    <div class="text-center form-group">
+                        <button type="button" class="btn btn-large btn-primary" ng-click="correctName.$show()" ng-show="!correctName.$visible">Correct Client Name</button>
+                    </div>
+                    <!-- buttons to submit / cancel form -->
+                    <span ng-show="correctName.$visible">
+                        <button type="submit" class="btn btn-primary" ng-disabled="correctName.$waiting">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-default" ng-disabled="correctName.$waiting" ng-click="correctName.$cancel()">
+                            Cancel
+                        </button>
+                    </span>
+                </fieldset>
+        </form>
+
+        <form editable-form name="changeEmail" onaftersave="changeEmail()">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="emailAddress">Email Address: </label>
+                        <div class="controls">
+                            <span editable-text="client.Contact.EmailAddress" e-name="emailAddress" onbeforesave="checkName($data)" e-required>{{ client.Contact.EmailAddress || 'empty' }}</span>
+                        </div>
+                    </div>
+                    <div class="text-center form-group">
+                        <button type="button" class="btn btn-large btn-primary" ng-click="changeEmail.$show()" ng-show="!changeEmail.$visible">Change Email Address</button>
+                    </div>
+                    <!-- buttons to submit / cancel form -->
+                    <span ng-show="changeEmail.$visible">
+                        <button type="submit" class="btn btn-primary" ng-disabled="changeEmail.$waiting">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-default" ng-disabled="changeEmail.$waiting" ng-click="changeEmail.$cancel()">
+                            Cancel
+                        </button>
+                    </span>
+                </fieldset>
+        </form>
+
+
+        <form editable-form name="changePhone" onaftersave="changePhone()">
+            <fieldset>
+                <div class="form-group">
+                    <label for="phone">Phone Number: </label>
+                    <div class="controls">
+                        <span editable-text="client.Contact.Phone" e-name="phone" onbeforesave="checkName($data)" e-required>{{ client.Contact.Phone || 'empty' }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="secondaryPhone">Secondary Phone Number: </label>
+                    <div class="controls">
+                        <span editable-text="client.Contact.SecondaryPhone" e-name="secondaryPhone" onbeforesave="checkName($data)" e-required>{{ client.Contact.SecondaryPhone || 'empty' }}</span>
+                    </div>
+                </div>
+                <div class="text-center form-group">
+                    <button type="button" class="btn btn-large btn-primary" ng-click="changePhone.$show()" ng-show="!changePhone.$visible">Change Phone Number</button>
+                </div>
+                <!-- buttons to submit / cancel form -->
+                <span ng-show="changePhone.$visible">
+                    <button type="submit" class="btn btn-primary" ng-disabled="changePhone.$waiting">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-default" ng-disabled="changePhone.$waiting" ng-click="changePhone.$cancel()">
+                        Cancel
+                    </button>
+                </span>
+            </fieldset>
+        </form>
+
+        <fieldset>
+            <div class="form-group">
+                <label for="Source">Source: </label>
+                <div class="controls">
+                    <span data-ng-bind="client.Source"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sourceNotes">Source Notes: </label>
+                <div class="controls">
+                    <span data-ng-bind="client.SourceNotes"></span>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+
 	<small>
 		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="client.created | date:'mediumDate'"></span>
+			Created On
+			<span data-ng-bind="client.CreatedDate | date:'mediumDate'"></span>
 			by
 			<span data-ng-bind="client.user.displayName"></span>
 		</em>

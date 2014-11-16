@@ -4,7 +4,7 @@
 angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'repository',
 	function($scope, $stateParams, $location, Authentication, repository) {
 		$scope.authentication = Authentication;
-
+        $scope.client = {Contact:{FirstName:"fucknutz"}};
 		// Create new Client
 		$scope.create = function(isValid) {
             if (isValid){
