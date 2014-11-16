@@ -1,14 +1,15 @@
 'use strict';
 
 //Clients service used to communicate Clients REST endpoints
-angular.module('clients').factory('repository', ['$rootScope', '$http','$resource', '$q', //'lodash',
-	function($rootScope, $http, $resource, $q ) {
+var clientModule = angular.module('clients').factory('repository', ['$rootScope', '$http','$resource', '$q', 'Clients', //'lodash',
+	function($rootScope, $http, $resource, $q, Clients) {
 
+        var url='clients';
+        var resource=$resource('clients',{id:'@_id'});
         var deferred = $q.defer();
         var items = [];
 
         var _getAll = function(){
-            var resource=$resource('clients',{id:'@_id'});
             return resource.query().$promise;
         };
 
@@ -21,9 +22,10 @@ angular.module('clients').factory('repository', ['$rootScope', '$http','$resourc
 //                item.id == id
 //            });
 //            if(!client){
-            var resource=$resource('/clients/:id',{id:'@id'});
-                return resource.get({id:id}).$promise;
-//            }
+//            var resource=$resource('/clients/:clientId',{clientId:'@id'});
+            return Clients.get({clientId: id}).$promise;
+
+//            return null;
         }
 
         var _query = function(queryParam){
@@ -104,4 +106,15 @@ angular.module('clients').factory('repository', ['$rootScope', '$http','$resourc
         };
         return srvs;
 	}
+]);
+
+clientModule.factory('Clients', ['$resource',
+    function($resource) {
+        return $resource('clients/:clientId', { clientId: '@_id'
+        }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }
 ]);

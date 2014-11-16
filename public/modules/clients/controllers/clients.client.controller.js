@@ -2,7 +2,7 @@
 
 // Clients controller
 angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'repository',
-	function($scope, $stateParams, $location, Authentication, repository ) {
+	function($scope, $stateParams, $location, Authentication, repository) {
 		$scope.authentication = Authentication;
 
 		// Create new Client
