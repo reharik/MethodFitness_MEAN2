@@ -1,21 +1,40 @@
 'use strict';
 
 //Clients service used to communicate Clients REST endpoints
-angular.module('clients').factory('repository', ['$rootScope', '$http','$resource', '$q',
+angular.module('clients').factory('repository', ['$rootScope', '$http','$resource', '$q', //'lodash',
 	function($rootScope, $http, $resource, $q ) {
 
-        var url='clients';
-        var resource=$resource(url,{id:'@_id'});
         var deferred = $q.defer();
         var items = [];
 
         var _getAll = function(){
+            var resource=$resource('clients',{id:'@_id'});
             return resource.query().$promise;
         };
 
         var _create = function(item){
             items.push(item);
         };
+
+        var _get = function(id){
+//            var client = _.first(items, function (i, item) {
+//                item.id == id
+//            });
+//            if(!client){
+            var resource=$resource('/clients/:id',{id:'@id'});
+                return resource.get({id:id}).$promise;
+//            }
+        }
+
+        var _query = function(queryParam){
+            var _queryParam = queryParam;
+            var client = _.first(items, function (i, item) {
+                item.id == id
+            });
+//            if(!client){
+//                return resource.query(id==).$promise;
+//            }
+        }
 
         var _remove = function(item){
             _.remove(items, function (_item) {
@@ -61,6 +80,25 @@ angular.module('clients').factory('repository', ['$rootScope', '$http','$resourc
             });
             return deferred.promise;
         };
+
+        srvs.Get= function(id){
+            var promise = _get(id);
+            promise.then(function(_item) {
+                deferred.resolve(_item);
+                deferred.reject('error message');
+            });
+            return deferred.promise;
+        };
+
+        srvs.Query= function(query){
+            var promise = _query(query);
+            promise.then(function(_item) {
+                deferred.resolve(_item);
+                deferred.reject('error message');
+            });
+            return deferred.promise;
+        };
+
         srvs.Remove= function(item){
             _remove(item);
         };

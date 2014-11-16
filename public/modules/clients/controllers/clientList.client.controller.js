@@ -10,10 +10,10 @@ angular.module('clients').controller('ClientListController', ['$scope', '$stateP
             $scope.gridOptions = {
                 enableSorting: true,
                 columnDefs: [
-                    { name:'firstName', field: 'FirstName' },
+                    { name:'firstName', field: 'FirstName', cellTemplate:'<div><a data-ng-href="/#!/clients/{{row.entity._id}}/edit">{{row.entity.FirstName}}</a> </div>' },
                     { name:'lastName', field: 'LastName' },
-                    { name:'city', field: 'City'},
-                    { name:'zip', field: 'Zip'}
+                    { name:'emailAddress', field: 'EmailAddress', cellTemplate:'<div><a href="mailto:{{row.entity.EmailAddress}}">{{row.entity.EmailAddress}}</a></div>'},
+                    { name:'phone', field: 'Phone'}
                 ]};
             var promise = repository.GetAll();
             promise.then(function(items) {
