@@ -58,6 +58,7 @@ exports.create = function(req, res) {
  * Show the current Client
  */
 exports.read = function(req, res) {
+console.log(req.client);
 	res.jsonp(req.client);
 };
 

@@ -10,7 +10,11 @@ var mongoose = require('mongoose'),
  * ClientSummary Schema
  */
 var ClientSummarySchema = new Schema({
-
+    _id: {
+        type: String,
+        default: '',
+        trim: true
+    },
     FirstName: {
 		type: String,
 		default: '',

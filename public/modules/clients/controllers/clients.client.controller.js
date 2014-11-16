@@ -2,7 +2,7 @@
 
 // Clients controller
 angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'repository',
-	function($scope, $stateParams, $location, Authentication, repository ) {
+	function($scope, $stateParams, $location, Authentication, repository) {
 		$scope.authentication = Authentication;
 
 		// Create new Client
@@ -33,7 +33,7 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 				$scope.client.$remove(function() {
 					$location.path('clients');
 				});
-			}
+    			}
 		};
 
 		// Update existing Client
@@ -49,9 +49,13 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 
 		// Find existing Client
 		$scope.findOne = function() {
-			$scope.client = Clients.get({ 
-				clientId: $stateParams.clientId
-			});
+            var _id = $stateParams.clientId;
+            var promise = repository.Get(_id);
+            promise.then(function(items) {
+                $scope.client = items;
+            }, function(errorMessage) {
+                $scope.error = errorMessage;
+            });
 		};
 	}
 ]);

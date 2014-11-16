@@ -10,12 +10,17 @@ var mongoose = require('mongoose'),
  * Client Schema
  */
 var ClientSchema = new Schema({
-        FirstName: {
-            type: String,
-            default: '',
-            required: 'Please fill Client first name',
-            trim: true
-        },
+    _id: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    FirstName: {
+        type: String,
+        default: '',
+        required: 'Please fill Client first name',
+        trim: true
+    },
         LastName: {
             type: String,
             default: '',

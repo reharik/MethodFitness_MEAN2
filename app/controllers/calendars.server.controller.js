@@ -30,6 +30,7 @@ exports.create = function(req, res) {
  * Show the current Calendar
  */
 exports.read = function(req, res) {
+    console.log(req.calendar);
 	res.jsonp(req.calendar);
 };
 
