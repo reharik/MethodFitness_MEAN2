@@ -1,14 +1,15 @@
 'use strict';
 
 // Clients controller
-angular.module('clients').controller('ClientListController', ['$scope', '$stateParams', '$location', 'Authentication', 'repository',
-	function($scope, $stateParams, $location, Authentication, repository ) {
+angular.module('clients').controller('ClientListController', ['$scope', '$stateParams', '$location', 'Authentication', 'clientRepository',
+	function($scope, $stateParams, $location, Authentication, clientRepository ) {
 		$scope.authentication = Authentication;
 
 		// Find a list of Clients
 		$scope.find = function() {
 
             $scope.gridOptions = {
+                data:[],
                 enableSorting: true,
                 enableScrollbars:false,
                 columnDefs: [
@@ -17,7 +18,8 @@ angular.module('clients').controller('ClientListController', ['$scope', '$stateP
                     { name:'emailAddress', field: 'EmailAddress', cellTemplate:'<div><a href="mailto:{{row.entity.EmailAddress}}">{{row.entity.EmailAddress}}</a></div>'},
                     { name:'phone', field: 'Phone'}],
             };
-            var promise = repository.GetAll();
+
+            var promise = clientRepository.GetAll();
             promise.then(function(items) {
                 $scope.gridOptions.data= items;
             }, function(errorMessage) {

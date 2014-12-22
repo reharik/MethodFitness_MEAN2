@@ -10,9 +10,10 @@ module.exports = function(app) {
 		.get(clientList.list)
 		.post(users.requiresLogin, clients.create);
 
-	app.route('/clients/:clientId')
+	app.route('/clients/:clientId/:cmdName?')
 		.get(clients.read)
-		.put(users.requiresLogin, clients.hasAuthorization, clients.update)
+        .put(users.requiresLogin, clients.update)
+//        .put(users.requiresLogin, clients.hasAuthorization, clients.update)
 		.delete(users.requiresLogin, clients.hasAuthorization, clients.delete);
 
 	// Finish by binding the Client middleware

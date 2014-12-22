@@ -68,7 +68,6 @@ var ClientSchema = new Schema({
     Dob: {
         type: Date
     }
-
 });
 
 mongoose.model('Client', ClientSchema);
