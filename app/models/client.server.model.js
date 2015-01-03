@@ -21,28 +21,28 @@ var ClientSchema = new Schema({
         required: 'Please fill Client first name',
         trim: true
     },
-        LastName: {
-            type: String,
-            default: '',
-            required: 'Please fill Client last name',
-            trim: true
-        },
-        EmailAddress: {
-            type: String,
-            default: '',
-            required: 'Please fill Client email address',
-            trim: true
-        },
-        Phone: {
-            type: String,
-            default: '',
-            trim: true
-        },
-        SecondaryPhone: {
-            type: String,
-            default: '',
-            trim: true
-        },
+    LastName: {
+        type: String,
+        default: '',
+        required: 'Please fill Client last name',
+        trim: true
+    },
+    EmailAddress: {
+        type: String,
+        default: '',
+        required: 'Please fill Client email address',
+        trim: true
+    },
+    Phone: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    SecondaryPhone: {
+        type: String,
+        default: '',
+        trim: true
+    },
     Source: {
         type: String,
         default: '',

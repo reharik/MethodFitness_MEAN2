@@ -13,21 +13,10 @@ var mongoose = require('mongoose'),
     that = this;
 
 
-that.createCommand = function(vent, cmdName){
+that.createCommand = function(vent, cmdName, cb){
     var metadata = {
         'CommitId':uuid.v1(),
         'CommandTypeName':cmdName
-    };
-
-
-    var cb = function(err, body) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(body);
-        }
     };
     appender('CommandDispatch', new gesEvent(uuid.v1(), metadata.CommandTypeName, true, vent, metadata),cb);
 };
@@ -57,7 +46,19 @@ exports.create = function(req, res) {
         SourceNotes: client.SourceNotes,
         StartDate: client.StartDate
     };
-    that.createCommand(req,_event,req.body.cmdName);
+
+    var cb = function(err, body) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(body);
+        }
+    };
+
+    that.createCommand(_event,req.body.cmdName, cb);
+
 };
 
 /**
