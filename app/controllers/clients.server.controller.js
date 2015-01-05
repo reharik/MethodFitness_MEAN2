@@ -13,10 +13,19 @@ var mongoose = require('mongoose'),
     that = this;
 
 
-that.createCommand = function(vent, cmdName, cb){
+that.createCommand = function(res, vent, cmdName){
     var metadata = {
         'CommitId':uuid.v1(),
         'CommandTypeName':cmdName
+    };
+    var cb = function(err, body) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(body);
+        }
     };
     appender('CommandDispatch', new gesEvent(uuid.v1(), metadata.CommandTypeName, true, vent, metadata),cb);
 };
@@ -47,17 +56,7 @@ exports.create = function(req, res) {
         StartDate: client.StartDate
     };
 
-    var cb = function(err, body) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(body);
-        }
-    };
-
-    that.createCommand(_event,req.body.cmdName, cb);
+    that.createCommand(res, _event,req.body.cmdName);
 
 };
 
@@ -75,48 +74,26 @@ console.log(req.client);
 exports.update = function(req, res, next) {
     var clientId = req.params.clientId;
     var cmdName = req.params.cmdName;
-	var client = req.client;
-    that[cmdName](req,req.body);
-//    client = _.extend(client , req.body);
-//
-//	client.save(function(err) {
-//		if (err) {
-//			return res.status(400).send({
-//				message: errorHandler.getErrorMessage(err)
-//			});
-//		} else {
-//			res.jsonp(client);
-//		}
-//	});
+	var client = req.body.item;
+    console.log("params log");
+    _.forEach(req.body,function(i){
+        console.log(i+' value:'+req.body[i]);
+    })
+    that[cmdName](req, res, client);
 };
 
-that.correctClientsName = function(req,client){
+that.correctClientsName = function(req,res, client){
+    console.log("client log");
+    console.log(client);
+    _.forEach(Object.keys(client),function(i){
+        console.log(i+' value:'+client[i]);
+    })
     var _event = {
-        Contact: {  FirstName: client.FirstName,
-            LastName: client.LastName
+        Contact: {  FirstName: client.Contact.FirstName,
+                    LastName: client.Contact.LastName
         }
     };
-    that.createCommand(req,_event,'CorrectClientName');
-//    var metadata = {
-//        'CommitId':uuid.v1(),
-//        'CommandTypeName':req.body.cmdName
-//    };
-//    var _event = {
-//        Contact: {  FirstName: client.FirstName,
-//            LastName: client.LastName
-//        }
-//    };
-//
-//    var cb = function(err, body) {
-//        if (err) {
-//            return res.status(400).send({
-//                message: errorHandler.getErrorMessage(err)
-//            });
-//        } else {
-//            res.jsonp(body);
-//        }
-//    };
-//    appender('CommandDispatch', new gesEvent(uuid.v1(), metadata.CommandTypeName, true, _event, metadata),cb);
+    that.createCommand(res,_event,'CorrectClientName');
 }
 
 /**
