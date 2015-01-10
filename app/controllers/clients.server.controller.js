@@ -82,6 +82,7 @@ exports.update = function(req, res, next) {
     that[cmdName](req, res, client);
 };
 
+
 that.correctClientsName = function(req,res, client){
     console.log("client log");
     console.log(client);
@@ -89,10 +90,14 @@ that.correctClientsName = function(req,res, client){
         console.log(i+' value:'+client[i]);
     })
     var _event = {
+        ClientId: client._id,
         Contact: {  FirstName: client.Contact.FirstName,
                     LastName: client.Contact.LastName
         }
     };
+    _.forEach(Object.keys(_event),function(i){
+        console.log(i+' value:'+_event[i]);
+    });
     that.createCommand(res,_event,'CorrectClientName');
 }
 
