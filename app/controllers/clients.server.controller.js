@@ -34,7 +34,7 @@ that.createCommand = function(res, vent, cmdName){
  * Create a Client
  */
 exports.create = function(req, res) {
-    console.log(req.body.item)
+    console.log(JSON.stringify(req.body.item, null, '\t'));
 	var client = new Client(req.body.item);
     Client.findOne({ 'EmailAddress': client.EmailAddress }).exec(function (err, _client) {
         var msg = err? err : {errors:[{'message':'Client with email: '+client.EmailAddress+' already exists.'}]};
@@ -48,14 +48,13 @@ exports.create = function(req, res) {
         Contact: {  FirstName: client.FirstName,
             LastName: client.LastName,
             EmailAddress: client.EmailAddress,
-            PhoneMobile: client.PhoneMobile,
-            PhoneSecondary: client.PhoneSecondary
+            Phone: client.Phone,
+            SecondaryPhone: client.SecondaryPhone
         },
         TrainerId: client.TrainerId,
         SourceNotes: client.SourceNotes,
         StartDate: client.StartDate
     };
-
     that.createCommand(res, _event,req.body.cmdName);
 
 };
@@ -64,7 +63,7 @@ exports.create = function(req, res) {
  * Show the current Client
  */
 exports.read = function(req, res) {
-console.log(req.client);
+    console.log(JSON.stringify(req.client, null, '\t'));
 	res.jsonp(req.client);
 };
 
@@ -75,29 +74,21 @@ exports.update = function(req, res, next) {
     var clientId = req.params.clientId;
     var cmdName = req.params.cmdName;
 	var client = req.body.item;
-    console.log("params log");
-    _.forEach(req.body,function(i){
-        console.log(i+' value:'+req.body[i]);
-    })
+    console.log("params log: " + json.stringify(req.body, null, '\t'));
+
     that[cmdName](req, res, client);
 };
 
 
 that.correctClientsName = function(req,res, client){
-    console.log("client log");
-    console.log(client);
-    _.forEach(Object.keys(client),function(i){
-        console.log(i+' value:'+client[i]);
-    })
+    console.log("client log" + json.stringify(client,null, '\t'));
     var _event = {
         ClientId: client._id,
         Contact: {  FirstName: client.Contact.FirstName,
                     LastName: client.Contact.LastName
         }
     };
-    _.forEach(Object.keys(_event),function(i){
-        console.log(i+' value:'+_event[i]);
-    });
+    console.log("event: " + json.stringify(_event, null, '\t'));
     that.createCommand(res,_event,'CorrectClientName');
 }
 

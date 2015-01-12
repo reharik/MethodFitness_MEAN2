@@ -16,7 +16,7 @@ angular.module('clients').controller('ClientListController', ['$scope', '$stateP
                     { name:'firstName', field: 'FirstName', cellTemplate:'<div><a data-ng-href="/#!/clients/{{row.entity._id}}">{{row.entity.FirstName}}</a> </div>' },
                     { name:'lastName', field: 'LastName' },
                     { name:'emailAddress', field: 'EmailAddress', cellTemplate:'<div><a href="mailto:{{row.entity.EmailAddress}}">{{row.entity.EmailAddress}}</a></div>'},
-                    { name:'phone', field: 'Phone'}],
+                    { name:'phone', field: 'Phone'}]
             };
 
             var promise = clientRepository.GetAll();

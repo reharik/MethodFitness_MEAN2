@@ -8,6 +8,7 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 		// Create new Client
 		$scope.create = function(isValid) {
             if (isValid){
+                console.log('from form: '+JSON.stringify($scope.client,null,'/t'))
                 $scope.success = $scope.error = null;
                 var promise = clientRepository.Save($scope.client,'SignUpTrainerGeneratedClient');
                 promise.then(function() {
